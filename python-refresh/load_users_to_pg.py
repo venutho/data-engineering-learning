@@ -1,13 +1,19 @@
 import requests
 import psycopg2
 
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
 API_URL = "https://jsonplaceholder.typicode.com/users"
 
 connection = psycopg2.connect(
-    host="localhost",
-    database="de_learning",
-    user="postgres",
-    password="postgres"
+    host=os.getenv("DB_HOST", "localhost"),
+    port=os.getenv("DB_PORT", "5432"),
+    database=os.getenv("DB_NAME", "de_learning"),
+    user=os.getenv("DB_USER", "postgres"),
+    password=os.getenv("DB_PASSWORD", "postgres")
 )
 
 cursor = connection.cursor()
